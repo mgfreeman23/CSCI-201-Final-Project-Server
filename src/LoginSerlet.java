@@ -42,7 +42,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse res){
 
     // SQL script for finding just the username first
     PreparedStatement ps = conn.prepareStatement("SELECT username FROM user WHERE username=?");
-    ps.setString(1. uname);
+    ps.setString(1, uname);
     ResultSet rs = ps.executeQuery();
 
     // if it's null -> wrong username: code -2
