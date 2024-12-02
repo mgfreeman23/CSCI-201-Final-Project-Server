@@ -47,7 +47,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse res){
 
     // if it's null -> wrong username: code -2
     if(rs.next() == null){
-        pw.write(gson.toJson("-2")); 
+        pw.write(gson.toJson(-2)); 
         pw.flush();
     }
     else{ // if username exists, then we can check that the passwords match as well
@@ -57,11 +57,11 @@ protected void doGet(HttpServletRequest req, HttpServletResponse res){
 
         rs.next();
         if(rs.getString("password") != pass){ // wrong password: code -1
-            pw.write(gson.toJson("-1"));
+            pw.write(gson.toJson(-1));
             pw.flush();
         }
         else{ // if it does equal, return the userID for future use within user's session
-            pw.write(gson.toJson(rs.getString("userID")));
+            pw.write(gson.toJson(rs.getInt("userID")));
             pw.flush();
         }
     }
