@@ -13,7 +13,7 @@ public class User {
     private String major;
     private String hometown;
     private List<String> hobbies;
-    private List<String> socialMediaLinks;
+    private String instagram;
     // Default constructor
     public User() {
         this.userID = -1;
@@ -24,11 +24,11 @@ public class User {
         this.major = "";
         this.hometown = "";
         this.hobbies = new ArrayList<>();
-        this.socialMediaLinks = new ArrayList<>();
+        this.instagram = "";
     }
     // Initializing constructor
     public User(int userID, String emailAddress, String username, String password, int age,
-                String major, String hometown, List<String> hobbies, List<String> socialMediaLinks) {
+                String major, String hometown, List<String> hobbies, String instagram) {
         this.userID = userID;
         this.emailAddress = emailAddress;
         this.username = username;
@@ -37,7 +37,7 @@ public class User {
         this.major = major;
         this.hometown = hometown;
         this.hobbies = hobbies;
-        this.socialMediaLinks = socialMediaLinks;
+        this.instagram = instagram;
     }
     // Getters and setters
     public int getUserID() {
@@ -104,11 +104,11 @@ public class User {
         this.hobbies = hobbies;
     }
 
-    public List<String> getSocialMediaLinks() {
-        return socialMediaLinks;
+    public String getInstagram() {
+        return instagram;
     }
 
-    public void setSocialMediaLinks(List<String> socialMediaLinks) {
-        this.socialMediaLinks = socialMediaLinks;
+    public void setSocialMediaLinks(String instagram) {
+        this.instagram = instagram;
     }
 }
