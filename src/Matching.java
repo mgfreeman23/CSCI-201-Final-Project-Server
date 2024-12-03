@@ -58,6 +58,12 @@ public class Matching {
             Set<String> sharedHobbies = new HashSet<>(currentUserHobbiesLower);
             sharedHobbies.retainAll(userHobbiesLower);
             score += sharedHobbies.size();
+            
+            // If they both use Instagram, add 1
+            if (user.getInstagram() != "" && currentUser.getInstagram() != "") {
+            	score++;
+            }
+            
             // Add Match to the list if score is positive
             if (score > 0) {
                 bestMatches.add(new Match(user, score));
