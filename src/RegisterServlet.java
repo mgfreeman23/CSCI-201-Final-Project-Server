@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -91,8 +94,31 @@ public class RegisterServlet extends HttpServlet {
 	
 	private int registerUser(String email, String username, String password) {
 		try {
-			Connection c = DatabaseConnector.getConnection();
 			
+			Connection c = DatabaseConnector.getConnection();
+			// check if username already exists in database of users
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
+			ps.setString(1,  username);
+			ResultSet rs = ps.executeQuery();
+			// username already taken
+			if(rs.next() && rs.getInt(1) > 0) {
+				return -2;
+			}
+			
+			PreparedStatement insertUser = c.prepareStatement("INSERT INTO users (email, username, password) VALUES (?, ?, ?)",
+		            Statement.RETURN_GENERATED_KEYS);
+			insertUser.setString(1, email);
+			insertUser.setString(2, username);
+			insertUser.setString(3, password);
+			
+			insertUser.executeUpdate();
+			ResultSet user_id = insertUser.getGeneratedKeys();
+			// return the user id of the newly added user
+			if(user_id.next()) {
+				return user_id.getInt(1);
+			} else {
+				return -1;
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
