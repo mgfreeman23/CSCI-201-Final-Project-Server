@@ -1,5 +1,5 @@
-package maiawein_CSCI201_Final;
-
+//package maiawein_CSCI201_Final;
+package com.collegeapp;
 public class Settings
 {
 

@@ -33,4 +33,34 @@
     <servlet-name>ExploreServlet</servlet-name>
     <url-pattern>/ExploreServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserLogOutServlet</display-name>
+    <servlet-name>UserLogOutServlet</servlet-name>
+    <servlet-class>com.collegeapp.UserLogOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserLogOutServlet</servlet-name>
+    <url-pattern>/UserLogOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangePasswordServlet</display-name>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <servlet-class>com.collegeapp.ChangePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <url-pattern>/ChangePasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteAccountServlet</display-name>
+    <servlet-name>DeleteAccountServlet</servlet-name>
+    <servlet-class>com.collegeapp.DeleteAccountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAccountServlet</servlet-name>
+    <url-pattern>/DeleteAccountServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
