@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Servlet implementation class CreateProfileServlet
  */
-@WebServlet("/CreateProfileServlet")
+//@WebServlet("/CreateProfileServlet")
 public class CreateProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

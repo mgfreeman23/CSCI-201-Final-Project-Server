@@ -63,4 +63,14 @@
     <servlet-name>DeleteAccountServlet</servlet-name>
     <url-pattern>/DeleteAccountServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateProfileServlet</display-name>
+    <servlet-name>CreateProfileServlet</servlet-name>
+    <servlet-class>com.collegeapp.CreateProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateProfileServlet</servlet-name>
+    <url-pattern>/CreateProfileServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

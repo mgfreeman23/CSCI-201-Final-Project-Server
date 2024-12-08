@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-@WebServlet("/ChangePasswordServlet")
+//@WebServlet("/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
