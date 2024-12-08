@@ -74,8 +74,24 @@ public class ExploreServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		//MATCHING ALGORITHM ?
-		 
+		// RUN MATCHING ALGORITHM
+		 Matching matching = new Matching(users);
+		 List<Matching.Match> matches_ = null;
+		 for (User user : users) {
+			 if (user.getUsername().equals(username)) {
+				 matches_ = matching.findMatches(user.getUserID());
+				 break;
+			 }
+		 }
+		 // If there are no matches, return all users
+		 // If there are matches, return them in descending score order
+		 if (matches_ != null) {
+			 users = new ArrayList<User>();
+			 for (Matching.Match match : matches_) {
+				 users.add(match.getUser());
+			 }
+		 }
+		
 		//convert list into JSON and send
 		 PrintWriter out = response.getWriter();
 		 Gson gson = new Gson();
