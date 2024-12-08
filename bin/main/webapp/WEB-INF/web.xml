@@ -23,4 +23,14 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ExploreServlet</display-name>
+    <servlet-name>ExploreServlet</servlet-name>
+    <servlet-class>com.collegeapp.ExploreServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExploreServlet</servlet-name>
+    <url-pattern>/ExploreServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
