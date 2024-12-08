@@ -34,7 +34,7 @@ public class ExploreServlet extends HttpServlet {
 		//get a list of users except that username (if username sent)
 		 try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/app_database?user=root&password=Ladybug88");
+            conn = DatabaseConnector.getConnection();
             
             String sql = "";
             if (username == null) {
@@ -55,7 +55,7 @@ public class ExploreServlet extends HttpServlet {
                 String hometown = rs.getString("hometown");
                 String ig = rs.getString("instagram_handle");
                 
-                Connection conn_hobby = DriverManager.getConnection("jdbc:mysql://localhost/app_database?user=root&password=Ladybug88");
+                Connection conn_hobby = DatabaseConnector.getConnection();
 
                 String hobby_sql = "SELECT * FROM app_database.hobbies WHERE user_id = ?";
                 PreparedStatement hobby_ps = conn_hobby.prepareStatement(hobby_sql);
