@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Servlet implementation class CreateProfileServlet
  */
-//@WebServlet("/CreateProfileServlet")
+@WebServlet("/profile")
 public class CreateProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -69,6 +70,7 @@ public class CreateProfileServlet extends HttpServlet {
                 pstmt.setInt(5, userId);
                 pstmt.executeUpdate();
             }
+            
             
             // update hobbies table
             // by clearing existing hobbies for that user and adding the new selected ones
