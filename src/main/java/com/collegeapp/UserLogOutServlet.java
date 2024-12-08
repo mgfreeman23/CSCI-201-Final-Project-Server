@@ -1,5 +1,3 @@
-package maiawein_CSCI201_Final;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
