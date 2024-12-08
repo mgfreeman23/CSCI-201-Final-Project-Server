@@ -17,7 +17,7 @@
     <description></description>
     <display-name>RegisterServlet</display-name>
     <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>RegisterServlet</servlet-class>
+    <servlet-class>com.collegeapp.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>

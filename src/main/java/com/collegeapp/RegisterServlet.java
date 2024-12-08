@@ -1,3 +1,4 @@
+package com.collegeapp;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -107,7 +108,7 @@ public class RegisterServlet extends HttpServlet {
 				return -2;
 			}
 			
-			PreparedStatement insertUser = c.prepareStatement("INSERT INTO users (email, username, password) VALUES (?, ?, ?)",
+			PreparedStatement insertUser = c.prepareStatement("INSERT INTO users (email_address, username, password) VALUES (?, ?, ?)",
 		            Statement.RETURN_GENERATED_KEYS);
 			insertUser.setString(1, email);
 			insertUser.setString(2, username);

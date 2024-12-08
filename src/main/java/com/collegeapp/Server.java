@@ -1,3 +1,4 @@
+package com.collegeapp;
 import java.util.ArrayList;
 import java.util.List;
 
