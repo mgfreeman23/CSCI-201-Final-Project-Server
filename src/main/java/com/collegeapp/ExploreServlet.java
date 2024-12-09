@@ -24,7 +24,7 @@ public class ExploreServlet extends HttpServlet {
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		String username = request.getParameter("username");
+		String uid = request.getParameter("uid");
 		
 		//get a DB connection
 		PreparedStatement ps;
@@ -35,10 +35,10 @@ public class ExploreServlet extends HttpServlet {
 			Connection conn = DatabaseConnector.getConnection();
             
             String sql = "";
-            if (username == null) {
+            if (uid == null) {
             	sql = "SELECT * FROM users";
             } else {
-            	sql = "SELECT * FROM users WHERE username != " + username;
+            	sql = "SELECT * FROM users WHERE user_id != " + uid;
             }
             ps = conn.prepareStatement(sql);
             
@@ -77,23 +77,27 @@ public class ExploreServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		// RUN MATCHING ALGORITHM
-		 Matching matching = new Matching(users);
-		 List<Matching.Match> matches_ = null;
-		 for (User user : users) {
-			 if (user.getUsername().equals(username)) {
-				 matches_ = matching.findMatches(user.getUserID());
-				 break;
+		 
+		 if (uid != null) {
+			// RUN MATCHING ALGORITHM
+			 Matching matching = new Matching(users);
+			 List<Matching.Match> matches_ = null;
+			 for (User user : users) {
+				 if (user.getUserID() == Integer.parseInt(uid)) {
+					 matches_ = matching.findMatches(user.getUserID());
+					 break;
+				 }
+			 }
+			 // If there are no matches, return all users
+			 // If there are matches, return them in descending score order
+			 if (matches_ != null) {
+				 users = new ArrayList<User>();
+				 for (Matching.Match match : matches_) {
+					 users.add(match.getUser());
+				 }
 			 }
 		 }
-		 // If there are no matches, return all users
-		 // If there are matches, return them in descending score order
-		 if (matches_ != null) {
-			 users = new ArrayList<User>();
-			 for (Matching.Match match : matches_) {
-				 users.add(match.getUser());
-			 }
-		 }
+		
 		
 		//convert list into JSON and send
 		 PrintWriter out = response.getWriter();
