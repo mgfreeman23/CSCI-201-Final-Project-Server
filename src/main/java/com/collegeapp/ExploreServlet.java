@@ -28,47 +28,50 @@ public class ExploreServlet extends HttpServlet {
 		
 		//get a DB connection
 		PreparedStatement ps;
-		Connection conn;
 		List<User> users = new ArrayList<User>();
 		
 		//get a list of users except that username (if username sent)
 		 try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DatabaseConnector.getConnection();
+			Connection conn = DatabaseConnector.getConnection();
             
             String sql = "";
             if (username == null) {
-            	sql = "SELECT * FROM app_database.users";
+            	sql = "SELECT * FROM users";
             } else {
-            	sql = "SELECT * FROM app_database.users WHERE username != " + username;
+            	sql = "SELECT * FROM users WHERE username != " + username;
             }
             ps = conn.prepareStatement(sql);
             
           //for each user, create a user object and add to the list
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-            	String id = rs.getString("user_id");
-                String email = rs.getString("email_address");
-                String uname = rs.getString("username");
-                String age = rs.getString("age");
-                String major = rs.getString("major");
-                String hometown = rs.getString("hometown");
-                String ig = rs.getString("instagram_handle");
-                
-                Connection conn_hobby = DatabaseConnector.getConnection();
-
-                String hobby_sql = "SELECT * FROM app_database.hobbies WHERE user_id = ?";
-                PreparedStatement hobby_ps = conn_hobby.prepareStatement(hobby_sql);
-                hobby_ps.setString(1, id);
-                ResultSet hobby_rs = hobby_ps.executeQuery();
-                List<String> hobbies = new ArrayList<String>();
-                while(hobby_rs.next()) {
-                	String hobby = hobby_rs.getString("hobby");
-                	hobbies.add(hobby);
-                }
-                
-                User u = new User(Integer.parseInt(id), email, uname, "none", Integer.parseInt(age), major, hometown, hobbies, ig);
-                users.add(u);
+	            	String id = rs.getString("user_id");
+	                String email = rs.getString("email_address");
+	                String uname = rs.getString("username");
+	                String age = rs.getString("age");
+	                String major = rs.getString("major");
+	                String hometown = rs.getString("hometown");
+	                String ig = rs.getString("instagram_handle");
+	
+	                String hobby_sql = "SELECT * FROM hobbies WHERE user_id = ?";
+	                PreparedStatement hobby_ps = conn.prepareStatement(hobby_sql);
+	                hobby_ps.setString(1, id);
+	                ResultSet hobby_rs = hobby_ps.executeQuery();
+	                List<String> hobbies = new ArrayList<String>();
+	                while(hobby_rs.next()) {
+	                	String hobby = hobby_rs.getString("hobby");
+	                	hobbies.add(hobby);
+	                }
+	            try {   
+	            	int id_int = Integer.parseInt(id);
+	            	int age_int = Integer.parseInt(age);
+	                User u = new User(id_int, email, uname, "none", age_int, major, hometown, hobbies, ig);
+	                users.add(u);
+	            } catch (Exception e) {
+	            	continue;
+	            } finally {
+	            	
+	            }
             }
             
         } catch (Exception e) {
