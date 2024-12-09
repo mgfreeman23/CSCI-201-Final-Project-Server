@@ -15,6 +15,13 @@ import java.sql.SQLException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.util.*; 
+import javax.mail.*; 
+import javax.mail.internet.*; 
+import javax.activation.*; 
+import javax.mail.Session; 
+import javax.mail.Transport;
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
