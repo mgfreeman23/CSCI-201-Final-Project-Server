@@ -13,20 +13,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-//@WebServlet("/ChangePasswordServlet")
+@WebServlet("/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final String URL = "jdbc:mysql://localhost:3306/database";
-	private static final String USER = "root";
-	private static final String PASSWORD = ""; // Replace with SQL database password
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		response.getWriter().write("ChangePasswordServlet is running.");
+		response.getWriter().append("ChangePasswordServlet is running.");
 	}
 
 	@Override
@@ -34,36 +31,42 @@ public class ChangePasswordServlet extends HttpServlet
 	{
 		response.setContentType("application/json");
 
-		Settings.ChangePasswordMessage message = new Gson().fromJson(request.getReader(), Settings.ChangePasswordMessage.class);
-
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD))
+		try
 		{
+			JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
+			String newPassword = data.get("newPassword").getAsString();
+			
 			HttpSession session = request.getSession(false);
 			int userId = (int) session.getAttribute("userID");
 
+			Connection conn = DatabaseConnector.getConnection();
+			
 			// Update the user's password in the database
 			String updatePasswordQuery = "UPDATE users SET password = ? WHERE user_id = ?";
 			try (PreparedStatement ps = conn.prepareStatement(updatePasswordQuery))
 			{
-				ps.setString(1, message.newPassword);
+				ps.setString(1, newPassword);
 				ps.setInt(2, userId);
 
 				int rowsAffected = ps.executeUpdate();
-
+;
 				if (rowsAffected > 0)
 				{
-					response.getWriter().write(new Gson().toJson(new Settings.StatusMessage(true, null)));
+					response.setStatus(HttpServletResponse.SC_OK);
+					response.getWriter().write(new Gson().toJson("Password updated successfully."));
 				}
 				else
 				{
-					response.getWriter().write(new Gson().toJson(new Settings.StatusMessage(false, "Failed to update password.")));
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					response.getWriter().write(new Gson().toJson("Failed to update password."));
 				}
 			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			response.getWriter().write(new Gson().toJson(new Settings.StatusMessage(false, "An error occurred.")));
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().write(new Gson().toJson("An error occurred."));
 		}
 	}
 }
